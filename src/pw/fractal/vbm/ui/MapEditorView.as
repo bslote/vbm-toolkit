@@ -19,6 +19,8 @@ package pw.fractal.vbm.ui
 
         private function onAddedToStage(e:Event):void
         {
+            removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+
             new MinimalDesktopTheme();
 //            new AeonDesktopTheme();
 
