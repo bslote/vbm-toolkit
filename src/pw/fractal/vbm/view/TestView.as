@@ -65,6 +65,8 @@ package pw.fractal.vbm.view
 
         private function onAddedToStage(e:Event):void
         {
+            removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+            
             init();
         }
 
