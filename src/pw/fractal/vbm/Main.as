@@ -10,6 +10,8 @@ package pw.fractal.vbm {
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
     import flash.events.Event;
+    import flash.events.KeyboardEvent;
+    import flash.ui.Keyboard;
 
     import pw.fractal.vbm.ui.MapEditorView;
     import pw.fractal.vbm.view.IView;
@@ -67,6 +69,7 @@ package pw.fractal.vbm {
         {
             stage.addEventListener(Event.RESIZE, onResize);
             stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
         }
 
         public function showView(view:IView):void
@@ -120,6 +123,18 @@ package pw.fractal.vbm {
         {
             _stage3DProxy.width = stage.stageWidth;
             _stage3DProxy.height = stage.stageHeight;
+
+            _statsMonitor.x = stage.stageWidth - _statsMonitor.width;
+        }
+
+        private function onKeyDown(e:KeyboardEvent):void
+        {
+            switch (e.keyCode)
+            {
+                case Keyboard.TAB:
+                    // switch mode
+                    break;
+            }
         }
     }
 }

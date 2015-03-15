@@ -46,8 +46,8 @@ package pw.fractal.vbm.view
             _view.camera.lens = new PerspectiveLens(90);
 
             // Set up the scene
-            var material:TextureMaterial = new TextureMaterial(Cast.bitmapTexture(RodinMapTexture));
-            _torus = new Mesh(new TorusGeometry(256, 158, 80, 40), material);
+            var material:TextureMaterial = new TextureMaterial(Cast.bitmapTexture(RodinMapTexture), true, true);
+            _torus = new Mesh(new TorusGeometry(256, 158, 64, 32), material);
             _view.scene.addChild(_torus);
 
             stage.addEventListener(Event.RESIZE, onResize);
@@ -66,7 +66,7 @@ package pw.fractal.vbm.view
         private function onAddedToStage(e:Event):void
         {
             removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-            
+
             init();
         }
 
