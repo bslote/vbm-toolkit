@@ -36,6 +36,7 @@ package pw.fractal.vbm.view
             _view = new View3D();
             _view.stage3DProxy = _stage3DProxy;
             _view.shareContext = true;
+            _view.rightClickMenuEnabled = false;
 
             addChild(_view);
 

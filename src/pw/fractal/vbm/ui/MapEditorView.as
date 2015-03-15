@@ -20,7 +20,7 @@ package pw.fractal.vbm.ui
 
     public class MapEditorView extends Sprite
     {
-        var _toolPanel:Panel;
+        private var _toolPanel:Panel;
 
         public function MapEditorView()
         {
