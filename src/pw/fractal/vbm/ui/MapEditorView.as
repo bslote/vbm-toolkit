@@ -12,7 +12,10 @@ package pw.fractal.vbm.ui
     import feathers.layout.VerticalLayout;
     import feathers.themes.MinimalDesktopTheme;
 
+    import pw.fractal.vbm.model.SkinModel;
+
     import pw.fractal.vbm.util.MathUtil;
+    import pw.fractal.vbm.view.SkinEditorView;
 
     import starling.core.Starling;
     import starling.display.Sprite;
@@ -21,17 +24,31 @@ package pw.fractal.vbm.ui
     public class MapEditorView extends Sprite
     {
         private var _toolPanel:Panel;
+        private var _skinView:SkinEditorView;
+        private var _model:SkinModel;
 
         public function MapEditorView()
         {
-            addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+//            addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
         }
 
-        private function init():void
+        public function init():void
         {
             new MinimalDesktopTheme();
             createToolPanel();
-            // ...
+            createMapView();
+        }
+
+        public function toggleVisibility():void
+        {
+            if (contains(_skinView))
+            {
+                removeChild(_skinView);
+            }
+            else
+            {
+                addChild(_skinView);
+            }
         }
 
         private function createToolPanel():void
@@ -44,6 +61,17 @@ package pw.fractal.vbm.ui
             createDigitalRootGroup();
 
             addChild(_toolPanel);
+        }
+
+        private function createMapView():void
+        {
+            _skinView = new SkinEditorView(_model);
+//            _skinView.title = "Skin Editor";
+//            _skinView.height = Starling.current.stage.stageHeight;
+//            _skinView.width = (Starling.current.stage.stageWidth / 6) * 5;
+            _skinView.x = _toolPanel.x + _toolPanel.width;
+
+            addChild(_skinView);
         }
 
         private function createDigitalRootGroup():void
@@ -99,6 +127,16 @@ package pw.fractal.vbm.ui
             removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
             init();
+        }
+
+        public function get model():SkinModel
+        {
+            return _model;
+        }
+
+        public function set model(value:SkinModel):void
+        {
+            _model = value;
         }
     }
 }
