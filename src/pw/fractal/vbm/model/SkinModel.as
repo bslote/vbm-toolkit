@@ -13,7 +13,7 @@ package pw.fractal.vbm.model
     {
         public var width:uint;
         public var height:uint;
-        public var tiles:uint;
+        public var numTiles:uint;
         public var seed:int; // Use Number to allow halving sequences?
         private var _bitmapData:BitmapData;
 

@@ -4,10 +4,9 @@
 package pw.fractal.vbm.view
 {
     import flash.display.BitmapData;
-    import flash.display.Shape;
     import flash.display.Sprite;
-    import flash.geom.Matrix;
 
+    import pw.fractal.vbm.model.GoldenRhombusModel;
     import pw.fractal.vbm.model.SkinModel;
 
     import starling.display.Image;
@@ -41,48 +40,29 @@ package pw.fractal.vbm.view
             }
 
             _skinBitmapData = new BitmapData(_model.width, _model.height, false, 0xffffff);
-
-            // Draw a golden rhombus. p / q = 1.618
-            var p:Number = _model.width / (_model.tiles + .5);
-            var q:Number = p / 1.61803;
-
-            var rhombus:Shape = new Shape();
-            rhombus.graphics.lineStyle(1);
-
-            rhombus.graphics.moveTo(p / 2, 0);
-            rhombus.graphics.lineTo(p, q / 2);
-
-            rhombus.graphics.moveTo(p / 2, 0);
-            rhombus.graphics.lineTo(0, q / 2);
-
-            rhombus.graphics.moveTo(p / 2, q);
-            rhombus.graphics.lineTo(p, q / 2);
-
-            rhombus.graphics.moveTo(p / 2, q);
-            rhombus.graphics.lineTo(0, q / 2);
-
-            // Clone the rhombus and create a tiling
-            var clone:Shape;
             var skinSprite:flash.display.Sprite = new flash.display.Sprite();
 
-            for (var i:uint = 0; i < _model.tiles; i++)
-            {
-                for (var j:uint = 0; j < _model.tiles * 2; j++)
-                {
-                    clone = new Shape();
-                    clone.graphics.copyFrom(rhombus.graphics);
-                    clone.x = j % 2 == 0 ? p * i : (p / 2) + (p * i); // Stagger every other row
-                    clone.y = q * (j / 2);
+            var rhombusModel:GoldenRhombusModel;
+            var rhombus:GoldenRhombus;
+            var p:Number;
 
-                    skinSprite.addChild(clone);
+            for (var i:uint = 0; i < _model.numTiles; i++)
+            {
+                for (var j:uint = 0; j < _model.numTiles * 2; j++)
+                {
+                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles);
+                    rhombus = new GoldenRhombus(rhombusModel);
+
+                    p = rhombusModel.p;
+
+                    rhombus.x = j % 2 == 0 ? p * i : (p / 2) + (p * i); // Stagger every other row
+                    rhombus.y = rhombusModel.q * (j / 2);
+
+                    skinSprite.addChild(rhombus);
                 }
             }
 
-            var m:Matrix = new Matrix();
-//            m.translate(-_skinBitmapData.width / 2, -_skinBitmapData.height / 2);
-//            m.rotate(Math.PI / 2);
-//            m.translate(_skinBitmapData.width / 2, _skinBitmapData.height / 2);
-            _skinBitmapData.draw(skinSprite, m);
+            _skinBitmapData.draw(skinSprite);
             _model.bitmapData = _skinBitmapData;
 
             _skinTexture = Texture.fromBitmapData(_skinBitmapData, false);

@@ -53,7 +53,7 @@ package pw.fractal.vbm {
             _model = new SkinModel();
             _model.width = 1024;
             _model.height = 633;
-            _model.tiles = 9;
+            _model.numTiles = 9;
 
             initProxies();
         }

@@ -10,11 +10,9 @@ package pw.fractal.vbm.view
     import away3d.entities.Mesh;
     import away3d.materials.TextureMaterial;
     import away3d.primitives.TorusGeometry;
-    import away3d.textures.Texture2DBase;
     import away3d.utils.Cast;
 
     import flash.display.BitmapData;
-
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.geom.Vector3D;
@@ -110,9 +108,9 @@ package pw.fractal.vbm.view
             destroyTorus();
 
             var material:TextureMaterial = new TextureMaterial(new RectangularTexture(texture), true, false, false);
-            var r:Number = (_model.width / Math.PI) / 2;
-            var r2:Number = (_model.height / Math.PI) / 2;
-            _torus = new Mesh(new TorusGeometry(r, r2, 64, 32), material);
+            var r:Number = _model.width / (Math.PI * 2);
+            var r2:Number = _model.height / (Math.PI * 2);
+            _torus = new Mesh(new TorusGeometry(r, r2, 64, 64), material);
 
             _view.scene.addChild(_torus);
         }
