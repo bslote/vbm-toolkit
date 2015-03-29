@@ -57,7 +57,9 @@ package pw.fractal.vbm.view
 
             // Set up the scene
             var material:TextureMaterial = new TextureMaterial(Cast.bitmapTexture(RodinMapTexture), true, true);
-            _torus = new Mesh(new TorusGeometry(128, 64, 64, 32), material);
+            var r:Number = (_model.width / Math.PI) / 2;
+            var r2:Number = (_model.height / Math.PI) / 2;
+            _torus = new Mesh(new TorusGeometry(r, r2, 64, 32), material);
             _view.scene.addChild(_torus);
 
             // Register with AwayStats

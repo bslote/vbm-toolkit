@@ -6,6 +6,7 @@ package pw.fractal.vbm.view
     import flash.display.BitmapData;
     import flash.display.Shape;
     import flash.display.Sprite;
+    import flash.geom.Matrix;
 
     import pw.fractal.vbm.model.SkinModel;
 
@@ -70,14 +71,18 @@ package pw.fractal.vbm.view
                 {
                     clone = new Shape();
                     clone.graphics.copyFrom(rhombus.graphics);
-                    clone.x = j % 2 == 0 ? p * i : (p / 2) + (p * i);
+                    clone.x = j % 2 == 0 ? p * i : (p / 2) + (p * i); // Stagger every other row
                     clone.y = q * (j / 2);
 
                     skinSprite.addChild(clone);
                 }
             }
 
-            _skinBitmapData.draw(skinSprite);
+            var m:Matrix = new Matrix();
+//            m.translate(-_skinBitmapData.width / 2, -_skinBitmapData.height / 2);
+//            m.rotate(Math.PI / 2);
+//            m.translate(_skinBitmapData.width / 2, _skinBitmapData.height / 2);
+            _skinBitmapData.draw(skinSprite, m);
             _model.bitmapData = _skinBitmapData;
 
             _skinTexture = Texture.fromBitmapData(_skinBitmapData, false);
