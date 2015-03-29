@@ -10,6 +10,7 @@ package pw.fractal.vbm.view
     import away3d.entities.Mesh;
     import away3d.materials.TextureMaterial;
     import away3d.primitives.TorusGeometry;
+    import away3d.textures.Texture2DBase;
     import away3d.utils.Cast;
 
     import flash.display.BitmapData;
@@ -19,6 +20,7 @@ package pw.fractal.vbm.view
     import flash.geom.Vector3D;
 
     import pw.fractal.vbm.model.SkinModel;
+    import pw.fractal.vbm.textures.RectangularTexture;
 
     import starling.events.Event;
 
@@ -95,7 +97,40 @@ package pw.fractal.vbm.view
 
         private function onModelChanged(e:starling.events.Event):void
         {
-            _torus.material = new TextureMaterial(Cast.bitmapTexture(_model.bitmapData));
+            createTorus(_model.bitmapData);
+        }
+
+        private function createTorus(texture:BitmapData):void
+        {
+            if (!texture)
+            {
+                return;
+            }
+
+            destroyTorus();
+
+            var material:TextureMaterial = new TextureMaterial(new RectangularTexture(texture), true, false, false);
+            var r:Number = (_model.width / Math.PI) / 2;
+            var r2:Number = (_model.height / Math.PI) / 2;
+            _torus = new Mesh(new TorusGeometry(r, r2, 64, 32), material);
+
+            _view.scene.addChild(_torus);
+        }
+
+        private function destroyTorus():void
+        {
+            if (!_torus)
+            {
+                return;
+            }
+
+            if (_view.scene.contains(_torus))
+            {
+                _view.scene.removeChild(_torus);
+            }
+
+            _torus.dispose();
+            _torus = null;
         }
     }
 }
