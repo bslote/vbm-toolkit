@@ -27,7 +27,6 @@ package pw.fractal.vbm.sequence
             return _sequence;
         }
 
-        // Default implementations for functions and arrays.
         public function getElement(index:int):Object
         {
             throw new IllegalOperationError("getElement() implementation must be provided by subclass");
