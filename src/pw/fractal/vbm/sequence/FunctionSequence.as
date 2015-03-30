@@ -5,7 +5,7 @@ package pw.fractal.vbm.sequence
 {
     public class FunctionSequence extends AbstractSequence
     {
-        public function FunctionSequence(sequence:Function, direction = SequenceDirection.FORWARD, name:String = "")
+        public function FunctionSequence(sequence:Function, direction:String = SequenceDirection.FORWARD, name:String = "")
         {
             super(sequence, direction, name);
         }
