@@ -5,9 +5,9 @@ package pw.fractal.vbm.sequence
 {
     public class FunctionSequence extends AbstractSequence
     {
-        public function FunctionSequence(sequence:Function, name:String = "")
+        public function FunctionSequence(sequence:Function, direction = SequenceDirection.FORWARD, name:String = "")
         {
-            super(sequence, name);
+            super(sequence, direction, name);
         }
 
         override public function getElement(index:int):Object

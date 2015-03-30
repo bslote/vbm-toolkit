@@ -8,6 +8,7 @@ package pw.fractal.vbm.sequence
     public interface ISequence extends IIterator
     {
         function getElement(index:int):Object;
+        function getRelativeElement(index:int):Object;
         function getSubsequence(startIndex:int, length:int):Array;
         function get sequence():Object;
         function get name():String;

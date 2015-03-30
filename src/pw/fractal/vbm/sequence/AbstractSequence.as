@@ -20,9 +20,9 @@ package pw.fractal.vbm.sequence
         {
             _name = name;
             _sequence = sequence;
-            this.direction = direction;
-
             _iterator = new SequenceIterator(this);
+
+            this.direction = direction;
         }
 
         public function get sequence():Object
@@ -33,6 +33,11 @@ package pw.fractal.vbm.sequence
         public function getElement(index:int):Object
         {
             throw new IllegalOperationError("getElement() implementation must be provided by subclass");
+        }
+
+        public function getRelativeElement(index:int):Object
+        {
+            return getElement(_iterator.position + index);
         }
 
         public function getSubsequence(startIndex:int, length:int):Array
