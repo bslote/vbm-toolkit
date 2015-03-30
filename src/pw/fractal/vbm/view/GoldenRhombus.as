@@ -5,6 +5,8 @@ package pw.fractal.vbm.view
 {
     import flash.display.Shape;
     import flash.display.Sprite;
+    import flash.text.TextField;
+    import flash.text.TextFieldAutoSize;
 
     import pw.fractal.vbm.model.GoldenRhombusModel;
 
@@ -12,17 +14,22 @@ package pw.fractal.vbm.view
     {
         private var _model:GoldenRhombusModel;
         private var _shape:Shape;
+        private var _textField:TextField;
 
         public function GoldenRhombus(model:GoldenRhombusModel)
         {
             _model = model;
             _shape = new Shape();
+            _textField = new TextField();
 
             draw();
+            setText();
+
             addChild(_shape);
+            addChild(_textField);
         }
 
-        protected function draw():void
+        private function draw():void
         {
             var p:Number = _model.p;
             var q:Number = _model.q;
@@ -47,6 +54,16 @@ package pw.fractal.vbm.view
 
                 endFill();
             }
+        }
+
+        private function setText():void
+        {
+            _textField.autoSize = TextFieldAutoSize.LEFT;
+//            _textField.embedFonts = true;
+            _textField.text = _model.text;
+
+            _textField.x = (width - _textField.width) / 2;
+            _textField.y = (height - _textField.height) / 2;
         }
     }
 }

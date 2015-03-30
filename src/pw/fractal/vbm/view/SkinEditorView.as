@@ -50,7 +50,7 @@ package pw.fractal.vbm.view
             {
                 for (var j:uint = 0; j < _model.numTiles * 2; j++)
                 {
-                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles);
+                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles, "9");
                     rhombus = new GoldenRhombus(rhombusModel);
 
                     p = rhombusModel.p;

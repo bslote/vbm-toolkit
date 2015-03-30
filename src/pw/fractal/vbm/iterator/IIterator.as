@@ -7,6 +7,9 @@ package pw.fractal.vbm.iterator
     {
         function reset():void;
         function next():Object;
+        function prev():Object;
         function hasNext():Boolean;
+        function get position():int;
+        function set position(value:int):void;
     }
 }

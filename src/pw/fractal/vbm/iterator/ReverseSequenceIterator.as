@@ -5,23 +5,23 @@ package pw.fractal.vbm.iterator
 {
     import pw.fractal.vbm.sequence.ISequence;
 
-    public class SequenceIterator extends AbstractIterator
+    public class ReverseSequenceIterator extends AbstractIterator
     {
         private var _sequence:ISequence;
 
-        public function SequenceIterator(sequence:ISequence)
+        public function ReverseSequenceIterator(sequence:ISequence)
         {
             _sequence = sequence;
         }
 
         override public function next():Object
         {
-            return _sequence.getElement(_index++);
+            return _sequence.getElement(_index--);
         }
 
         override public function prev():Object
         {
-            return _sequence.getElement(_index--);
+            return _sequence.getElement(_index++);
         }
 
         override public function hasNext():Boolean
