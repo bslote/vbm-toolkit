@@ -5,6 +5,8 @@
  */
 package pw.fractal.vbm.util
 {
+    import flash.geom.Point;
+
     public class MathUtil
     {
         public static const PHI:Number = 1.61803;
@@ -13,6 +15,14 @@ package pw.fractal.vbm.util
         {
             var m:uint = number % 9;
             return m == 0 ? 9 : m;
+        }
+
+        public static function phiToScreen(pos:Point):Point
+        {
+            var screenX:Number = pos.x - pos.y;
+            var screenY:Number = (pos.x + pos.y) / PHI;
+
+            return new Point(screenX, screenY);
         }
     }
 }

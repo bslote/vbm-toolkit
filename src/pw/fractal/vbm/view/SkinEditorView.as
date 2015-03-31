@@ -5,9 +5,14 @@ package pw.fractal.vbm.view
 {
     import flash.display.BitmapData;
     import flash.display.Sprite;
+    import flash.geom.Point;
 
     import pw.fractal.vbm.model.GoldenRhombusModel;
     import pw.fractal.vbm.model.SkinModel;
+    import pw.fractal.vbm.sequence.DoublingSequence;
+    import pw.fractal.vbm.sequence.ISequence;
+    import pw.fractal.vbm.sequence.ThreeSixNineSequence;
+    import pw.fractal.vbm.util.MathUtil;
 
     import starling.display.Image;
     import starling.display.Sprite;
@@ -39,24 +44,75 @@ package pw.fractal.vbm.view
                 _skinBitmapData.dispose();
             }
 
+            // TODO: Move map model building logic elsewhere
+            var i:int;
+            var j:int;
+            var doubleCount:int = -1;
+            var threeCount:int = -1;
+
+            var sequence:ISequence;
+            for (i = _model.numTiles * 2; i > 0; i--)
+            {
+                if (i % 3 == 0)
+                {
+                    sequence = new ThreeSixNineSequence();
+//                    sequence.position = threeCount++;
+                }
+                else
+                {
+                    sequence = new DoublingSequence();
+//                    sequence.position = doubleCount++;
+
+                }
+
+                _model.addRow(sequence);
+                sequence.position = -1;
+            }
+
             _skinBitmapData = new BitmapData(_model.width, _model.height, false, 0xffffff);
             var skinSprite:flash.display.Sprite = new flash.display.Sprite();
 
             var rhombusModel:GoldenRhombusModel;
             var rhombus:GoldenRhombus;
             var p:Number;
+            var q:Number;
+            var x:Number;
+            var y:Number;
+            var pt:Point;
 
-            for (var i:uint = 0; i < _model.numTiles; i++)
+            for (i = 0; i < _model.numTiles; i++)
             {
-                for (var j:uint = 0; j < _model.numTiles * 2; j++)
+                for (j = 0; j < _model.numTiles; j++)
                 {
-                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles, "9");
+                    var value:Object = _model.getValue(j * 2, i);
+//                    var value:Object = j + ", " + i;
+                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles, value.toString());
                     rhombus = new GoldenRhombus(rhombusModel);
 
                     p = rhombusModel.p;
+                    q = rhombusModel.q;
 
-                    rhombus.x = j % 2 == 0 ? p * i : (p / 2) + (p * i); // Stagger every other row
-                    rhombus.y = rhombusModel.q * (j / 2);
+                    rhombus.x = i * p;
+                    rhombus.y = j * q;
+
+                    skinSprite.addChild(rhombus);
+                }
+            }
+
+            for (i = 0; i < _model.numTiles; i++)
+            {
+                for (j = 0; j < _model.numTiles; j++)
+                {
+                    var value:Object = _model.getValue((j * 2) + 1, i);
+//                    var value:Object = j + ", " + i;
+                    rhombusModel = new GoldenRhombusModel(_model.width / _model.numTiles, value.toString());
+                    rhombus = new GoldenRhombus(rhombusModel);
+
+                    p = rhombusModel.p;
+                    q = rhombusModel.q;
+
+                    rhombus.x = (i * p) + p / 2;
+                    rhombus.y = j * q + q / 2;
 
                     skinSprite.addChild(rhombus);
                 }
