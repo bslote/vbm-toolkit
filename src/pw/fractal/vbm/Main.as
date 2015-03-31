@@ -80,9 +80,14 @@ package pw.fractal.vbm {
         private function onRootCreated(e:starling.events.Event):void
         {
             _starling.removeEventListener(starling.events.Event.ROOT_CREATED, onRootCreated);
+
             var view:MapEditorView = _starling.root as MapEditorView;
             view.model = _model;
             view.init();
+
+            initListeners();
+
+            onResize();
 
             _starling.start();
         }
@@ -123,9 +128,6 @@ package pw.fractal.vbm {
 
             initAway3D();
             initStarling();
-            initListeners();
-
-            onResize();
         }
 
         private function onEnterFrame(e:flash.events.Event):void
@@ -133,7 +135,10 @@ package pw.fractal.vbm {
             _stage3DProxy.clear();
 
             // Render Away3D layer
-            _view.render();
+            if (!(_starling.root as MapEditorView).isVisible())
+            {
+                _view.render();
+            }
 
             // Render starling
             _starling.nextFrame();

@@ -51,6 +51,11 @@ package pw.fractal.vbm.ui
             }
         }
 
+        public function isVisible():Boolean
+        {
+            return contains(_skinView);
+        }
+
         private function createToolPanel():void
         {
             _toolPanel = new Panel();

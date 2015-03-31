@@ -23,10 +23,11 @@ package pw.fractal.vbm.view
             _textField = new TextField();
 
             draw();
-            setText();
 
             addChild(_shape);
             addChild(_textField);
+
+            setText();
         }
 
         private function draw():void
